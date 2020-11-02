@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <table>            
+            <th>Country</th>
+            <th>Population</th>
+            <th>Active Cases</th>            
+            <th>Active Cases Percent</th>            
+            <tr v-for="country in countries">
+                <td>{{country.country}}</td>
+                <td>{{country.population}}</td>
+                <td>{{country.activeCases}}</td>
+                <td>{{ getActiveCases(country).toFixed(2) + "%" }}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+<script>
+    function getActiveCasesPct(country) {
+        var active = parseInt(country.activeCases);
+        var population = parseInt(country.population);
+        return 100 * active / population;        
+    }
+
+    var app3 = new Vue({
+        el: '#app',
+        data: {
+            countries: {}
+        },
+        methods: {
+            getActiveCases: getActiveCasesPct
+        },
+        mounted() {
+            var self = this
+            $.getJSON("data/2020-11-01.json", function(data) {
+                console.log(data)
+                self.countries = data.data.sort(function(country1, country2) {
+                    return getActiveCasesPct(country1) > getActiveCasesPct(country2) ? -1 : 1
+                });                
+            });
+        }        
+    })      
+</script>
+
+</html>
