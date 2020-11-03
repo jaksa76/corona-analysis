@@ -7,16 +7,24 @@
 
 <body>
     <div id="app">
-        <table>            
+        <table>                        
             <th>Country</th>
             <th>Population</th>
             <th>Active Cases</th>            
-            <th>Active Cases Percent</th>            
+            <th>Active Cases Percent</th>   
+            <th>New Cases</th>         
+            <th>New Cases Per Mil</th>            
+            <th>New Deaths</th>         
+            <th>New Deaths Per Mil</th>            
             <tr v-for="country in countries">
                 <td>{{country.country}}</td>
                 <td>{{country.population}}</td>
                 <td>{{country.activeCases}}</td>
                 <td>{{ getActiveCases(country).toFixed(2) + "%" }}</td>
+                <td>{{country.newCases}}</td>
+                <td>{{ getNewCasesPerMil(country).toFixed(0) }}</td>
+                <td>{{country.newDeaths}}</td>
+                <td>{{ getNewDeathsPerMil(country).toFixed(2)}}</td>
             </tr>
         </table>
     </div>
@@ -26,7 +34,23 @@
     function getActiveCasesPct(country) {
         var active = parseInt(country.activeCases);
         var population = parseInt(country.population);
-        return 100 * active / population;        
+        return 100 * active / population;
+    }
+
+    function getNewCasesPerMil(country) {
+        var newCases = parseInt(country.newCases);
+        var population = parseInt(country.population);
+        return 1000000 * newCases / population;
+    }
+
+    function getNewDeathsPerMil(country) {
+        var newDeaths = parseInt(country.newDeaths);
+        var population = parseInt(country.population);
+        return 1000000 * newDeaths / population;
+    }
+
+    function compareBy(f) {
+        return (country1, country2) => f(country1) > f(country2) ? -1 : 1;
     }
 
     var app3 = new Vue({
@@ -35,15 +59,15 @@
             countries: {}
         },
         methods: {
-            getActiveCases: getActiveCasesPct
+            getActiveCases: getActiveCasesPct,
+            getNewCasesPerMil: getNewCasesPerMil,
+            getNewDeathsPerMil: getNewDeathsPerMil
         },
         mounted() {
             var self = this
-            $.getJSON("data/2020-11-01.json", function(data) {
+            $.getJSON("data/2020-11-03.json", function(data) {
                 console.log(data)
-                self.countries = data.data.sort(function(country1, country2) {
-                    return getActiveCasesPct(country1) > getActiveCasesPct(country2) ? -1 : 1
-                });                
+                self.countries = data.data.sort(compareBy(getNewDeathsPerMil));                
             });
         }        
     })      
