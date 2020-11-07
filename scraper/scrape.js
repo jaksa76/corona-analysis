@@ -45,7 +45,7 @@ function scrape() {
         // save to file
         var filename = new Date().toISOString().slice(0, 10) + ".json";
 
-        fs.writeFile("public/data/"+ filename, JSON.stringify(countries), function(err) {
+        fs.writeFile("../public/data/"+ filename, JSON.stringify(countries), function(err) {
             if (err) {
                 console.log(err);
             }

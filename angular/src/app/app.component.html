@@ -1,0 +1,26 @@
+<table mat-table [dataSource]="countries">
+  <!-- <ng-container matColumnDef="country">
+    <th mat-header-cell *matHeaderCellDef>Country</th>
+    <td mat-cell *matCellDef="let country">{{country.country}}</td>
+  </ng-container> -->
+
+  <mat-text-column name="country"></mat-text-column>
+  <mat-text-column name="activeCases" headerText="Active Cases"></mat-text-column>
+  <mat-text-column name="newCases" headerText="New Cases"></mat-text-column>
+  <mat-text-column name="newDeaths" headerText="New Deaths"></mat-text-column>
+  <mat-text-column name="population"></mat-text-column>
+  
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+</table>
+
+<!-- <table>  
+  <th>Index</th>
+  <th>Country</th>
+  <tr *ngFor="let country of countries; index as i">
+    <td>{{i}}</td>
+    <td>{{country.country}}</td>
+  </tr>
+</table> -->
+
+
