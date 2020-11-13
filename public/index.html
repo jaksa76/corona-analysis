@@ -50,7 +50,11 @@
     }
 
     function compareBy(f) {
-        return (country1, country2) => f(country1) > f(country2) ? -1 : 1;
+        return (country1, country2) => {
+            if (Object.is(f(country1), NaN)) return 1;
+            if (Object.is(f(country2), NaN)) return -1;
+            return f(country1) > f(country2) ? -1 : 1;
+        }
     }
 
     var app3 = new Vue({
@@ -65,8 +69,7 @@
         },
         mounted() {
             var self = this
-            $.getJSON("data/2020-11-03.json", function(data) {
-                console.log(data)
+            $.getJSON("data/2020-11-05.json", function(data) {
                 self.countries = data.data.sort(compareBy(getNewDeathsPerMil));                
             });
         }        
