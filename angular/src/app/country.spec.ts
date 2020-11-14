@@ -6,9 +6,10 @@ describe('Country', () => {
   });
 
   it('should calculate the percent of active cases', () => {
-    let country = new Country();
-    country.population = 1000000;
-    country.activeCases = 30000;
+    let country = new Country({
+      population: "1000000",
+      activeCases: "30000"
+    });
     expect(country.activeCasesPct()).toBeCloseTo(0.03);
   });
 });

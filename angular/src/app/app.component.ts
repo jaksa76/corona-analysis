@@ -17,9 +17,7 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private countriesService: CountriesService) {
-    // this.countries = new CountriesDataSource(countriesService);
-  }
+  constructor(private countriesService: CountriesService) { }
   
   ngOnInit() {
     this.countriesService.getCountries().subscribe((data: Country[]) => {
@@ -29,24 +27,7 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.countries.sort = this.sort;
-    console.log("foo");
-    
   }
-}
-
-
-export class CountriesDataSource extends DataSource<Country> {
-
-  constructor(private countriesService: CountriesService) {
-    super();
-  }
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Country[]> {
-    return this.countriesService.getCountries();
-  }
-
-  disconnect() {}
 }
 
 
