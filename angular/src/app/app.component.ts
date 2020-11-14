@@ -13,15 +13,15 @@ import { MatSort } from '@angular/material/sort';
 })
 export class AppComponent implements AfterViewInit {
   countries : MatTableDataSource<Country> = new MatTableDataSource();
-  columnsToDisplay = ['country', 'activeCases', 'newCases', 'newDeaths', 'population'];
+  columnsToDisplay = ['country', 'activeCases', 'activeCasesPct', 'newCases', 'newCasesPerMil', 'newDeaths', 'newDeathsPerMil', 'population'];
 
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private countriesService: CountriesService) { }
   
   ngOnInit() {
-    this.countriesService.getCountries().subscribe((data: Country[]) => {
-      this.countries.data = data;
+    this.countriesService.getCountries().subscribe((data: any[]) => {
+      this.countries.data = data.map(countryData => new Country(countryData));
     })
   }
 

@@ -10,14 +10,29 @@
     <td mat-cell *matCellDef="let row">{{row.activeCases}}</td>
   </ng-container>
 
+  <ng-container matColumnDef="activeCasesPct">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Active Cases %</th>
+    <td mat-cell *matCellDef="let row">{{row.activeCasesPct | percent:'.2'}}</td>
+  </ng-container>
+
   <ng-container matColumnDef="newCases">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>New Cases</th>
     <td mat-cell *matCellDef="let row">{{row.newCases}}</td>
   </ng-container>
 
+  <ng-container matColumnDef="newCasesPerMil">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>New Cases Per 1M</th>
+    <td mat-cell *matCellDef="let row">{{row.newCasesPerMil | number:'.0-0'}}</td>
+  </ng-container>
+
   <ng-container matColumnDef="newDeaths">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>New Deaths</th>
     <td mat-cell *matCellDef="let row">{{row.newDeaths}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="newDeathsPerMil">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>New Deaths Per 1M</th>
+    <td mat-cell *matCellDef="let row">{{row.newDeathsPerMil | number:'.0-0'}}</td>
   </ng-container>
   
   <ng-container matColumnDef="population">
