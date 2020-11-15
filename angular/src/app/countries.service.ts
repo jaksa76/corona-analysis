@@ -10,7 +10,7 @@ export class CountriesService {
   constructor(private http: HttpClient) {}
 
   getCountries() {
-      return this.http.get("assets/data/2020-11-13.json")
+      return this.http.get("assets/data/2020-11-15.json")
       .pipe(map((data: any) => {
         console.log(data);
         return data.data;

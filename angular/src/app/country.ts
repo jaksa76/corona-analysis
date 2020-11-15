@@ -15,10 +15,10 @@ export class Country {
             this.population = parseInt(data.population);            
             if (!isNaN(this.activeCases) && !isNaN(this.population)) this.activeCasesPct = this.activeCases / this.population;
 
-            this.newCases = data.newCases;
+            this.newCases = parseInt(data.newCases);
             if (!isNaN(this.newCases) && !isNaN(this.population)) this.newCasesPerMil = 1000000 * this.newCases / this.population;
 
-            this.newDeaths = data.newDeaths;
+            this.newDeaths = parseInt(data.newDeaths);
             if (!isNaN(this.newDeaths) && !isNaN(this.population)) this.newDeathsPerMil = 1000000 * this.newDeaths / this.population;
         }
     }
