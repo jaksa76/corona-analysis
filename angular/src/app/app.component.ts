@@ -20,9 +20,9 @@ export class AppComponent implements AfterViewInit {
   constructor(private countriesService: CountriesService) { }
   
   ngOnInit() {
-    this.countriesService.getCountries().subscribe((data: any[]) => {
-      this.countries.data = data.map(countryData => new Country(countryData));
-    })
+    this.countriesService.getCountries().subscribe(countries => { 
+      this.countries.data = countries; 
+    });
   }
 
   ngAfterViewInit(): void {
