@@ -14,7 +14,7 @@ export class CountriesService {
     let filename = new Date().toISOString().slice(0, 10) + ".json";
     return this.http.get(`assets/data/${filename}`)
       .pipe(map((data: any) => {
-        console.log(data);
+        console.table(data.data);
         return data.data.map(countryData => new Country(countryData));
       }));
   }
